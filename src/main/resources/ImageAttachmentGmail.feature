@@ -40,5 +40,3 @@ Feature: Gmail send email with image attachment
     And I click on “send” button
     Then a Google Drive link is added instead of the attachment
     And I should be able to see the email in my “Sent” folder
-
-
