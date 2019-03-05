@@ -1,28 +1,44 @@
-Feature: Amazon
+Feature: Gmail send email with image attachment
 
-  Scenario: Checking out after adding a new product to shopping cart
-    Given I am on a Amazon product page
-    When I press "Add to cart"
-    Then the product should exist in my shopping cart
-    And the checkout button exists
+  Scenario: Attaching an image to email with one recipient
+    Given I am on the new message page
+    And I have selected a single email recipient
+    When I click on the attach file button
+    And I select a .png image I want to attach
+    And I click on “send” button
+    Then I should be able to see the email in my “Sent” folder
 
-  Scenario: Checking out after adding an existing product to shopping cart
-    Given I am on a Amazon product page
-    And I have the same product that already exists in my shopping cart
-    When I press "Add to cart"
-    Then the product should exist in my shopping cart
-    And the quantity of the product should be equal to two
-    And the checkout button exists
+  Scenario: Attaching two images to email with one recipient
+    Given I am on the new message page
+    And I have selected a single email recipient
+    When I click on the attach file button
+    And I select two .png images I want to attach
+    And I click on “send” button
+    Then I should be able to see the email in my “Sent” folder
 
-  Scenario: Checking out after removing an existing product from shopping cart
-    Given I am on my current shopping cart
-    And I have a product that exists in my shopping cart
-    When I press "Delete"
-    Then the product should no longer exist in my shopping cart
-    And the checkout button does not exist
+  Scenario: Attaching an image to email with two recipients
+    Given I am on the new message page
+    And I have selected a two email recipient
+    When I click on the attach file button
+    And I select a .png image I want to attach
+    And I click on “send” button
+    Then I should be able to see the email in my “Sent” folder
 
-  Scenario: Checking out with an empty shopping cart
-    Given I am on my current shopping cart
-    And my shopping cart is empty
-    Then there is nothing to delete from the shopping cart
-    And the checkout button does not exist
+  Scenario: Attaching a jpeg image to email with one recipient
+    Given I am on the new message page
+    And I have selected a single email recipient
+    When I click on the attach file button
+    And I select a .jpeg image I want to attach
+    And I click on “send” button
+    Then I should be able to see the email in my “Sent” folder
+
+  Scenario: Attaching a image over 25MB to email with one recipient
+    Given I am on the new message page
+    And I have selected a single email recipient
+    When I click on the attach file button
+    And I select a .png image over 25MB
+    And I click on “send” button
+    Then a Google Drive link is added instead of the attachment
+    And I should be able to see the email in my “Sent” folder
+
+
