@@ -5,20 +5,30 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.And;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
 
 public class ImageAttachmentOutlook {
     
     private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
-    private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/";
+    private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/?nlp=1";
+    private final String EMAIL_ADDRESS = "fionawang.ecse428@hotmail.com";
+    private final String EMAIL_PASSWORD = "ecse4282019";
+//  private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa";
+
 //    private final String OUTLOOK_SENT_URL = "https://mail.google.com/mail/#sent";
 
     private ChromeDriver driver;
-
+    private WebDriverWait wait;
+    
     @Given("^I am on the new message page$")
     public void open_Chrome_launch_Outlook_and_new_message() throws Throwable {
-        System.out.println("Open Chrome, launch the Outlook application and clik on the compose button");
-        
+        System.out.println("Open Chrome, launch the Outlook application, sign in and click on the compose button");
+        // TODO: maybe add some print statements (that looks good? maybe) or clean up
+        // TODO: modulate below
         // Setup the chrome driver
         if (driver == null) {
             System.out.println("Setting up ChromeDriver... ");
@@ -27,35 +37,29 @@ public class ImageAttachmentOutlook {
             System.out.print("Done!\n");
         }
         
+        // Navigate to outlook main page
         navigateTo(OUTLOOK_SIGNIN_URL);
         
-        // EXAMPLE TEST, navigate to a random webpage and check that the title of the page is mercury tours
-//        
-//        String baseUrl = "http://demo.guru99.com/test/newtours/";
-//        String expectedTitle = "Welcome: Mercury Tours";
-//        String actualTitle = "";
-//
-//        // launch Fire fox and direct it to the Base URL
-//        if (driver != null) {
-//        System.out.println("Navigating to " + baseUrl);
-//        driver.get(baseUrl);
-//    }
-//
-//        // get the actual value of the title
-//        actualTitle = driver.getTitle();
-//
-//        /*
-//         * compare the actual title of the page with the expected one and print the
-//         * result as "Passed" or "Failed"
-//         */
-//        if (actualTitle.contentEquals(expectedTitle)) {
-//            System.out.println("Test Passed!");
-//        } else {
-//            System.out.println("Test Failed");
-//        }
-//
-//        // close Fire fox
-//        driver.close();
+        // Input login email
+        WebElement emailForm = driver.findElementById("i0116");
+        emailForm.sendKeys(EMAIL_ADDRESS);
+        // Input login password
+        WebElement passForm = driver.findElementById("i0118");
+        passForm.sendKeys(EMAIL_PASSWORD);
+        // Click on next button
+        WebElement nextBtn = driver.findElementById("idSIButton9");
+        nextBtn.click();
+        
+        // TODO: move to @setup (how to do setup?)
+        // Wait for the next page to appear and click on sign in button
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i0118")));
+        WebElement signInBtn = driver.findElementById("idSIButton9");
+        signInBtn.click();
+        
+        // Click on New Message button
+        WebElement newMessBtn = driver.findElementById("id__3");
+        newMessBtn.click();
     }
     
     @And("^I have selected a single email recipient$")
