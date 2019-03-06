@@ -7,22 +7,27 @@ import cucumber.api.java.en.And;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class ImageAttachmentGmail {
+public class ImageAttachmentOutlook {
     
     private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
-    private final String GMAIL_URL = "https://mail.google.com/mail/u/0/#inbox";
+    private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/";
+//    private final String OUTLOOK_SENT_URL = "https://mail.google.com/mail/#sent";
+
     private ChromeDriver driver;
 
     @Given("^I am on the new message page$")
-    public void open_Chrome_launch_Gmail_and_new_message() throws Throwable {
-        System.out.println("Open Chrome, launch the Gmail application and clik on the compose button");
+    public void open_Chrome_launch_Outlook_and_new_message() throws Throwable {
+        System.out.println("Open Chrome, launch the Outlook application and clik on the compose button");
         
+        // Setup the chrome driver
         if (driver == null) {
             System.out.println("Setting up ChromeDriver... ");
             System.setProperty("webdriver.chrome.driver", PATH_TO_CHROME_DRIVER);
             driver = new ChromeDriver();
             System.out.print("Done!\n");
         }
+        
+        navigateTo(OUTLOOK_SIGNIN_URL);
         
         // EXAMPLE TEST, navigate to a random webpage and check that the title of the page is mercury tours
 //        
@@ -78,9 +83,9 @@ public class ImageAttachmentGmail {
         System.out.println("Attach a .png image to the message");
     }
     
-    @And("I select a .png image over 25MB")
+    @And("I select a .png image over 33MB")
     public void attach_png_image_over25() throws Throwable {
-        System.out.println("Attach a .png image that is over 25MB to the message");
+        System.out.println("Attach a .png image that is over 33MB to the message");
     }
     
     @And("^I select a .jpeg image I want to attach$")
@@ -97,8 +102,17 @@ public class ImageAttachmentGmail {
     public void verify_email_sent() throws Throwable {
         System.out.println("Verify email is sent");
     }
+    
     @Then("^a file too large error message appears$")
     public void verify_file_too_large_error() throws Throwable {
         System.out.println("Verify file too large error message appears");
+    }
+    
+    // helper function
+    private void navigateTo(String url) {
+        if (driver != null) {
+            System.out.println("navigating to " + url);
+            driver.get(url);
+        }
     }
 }
