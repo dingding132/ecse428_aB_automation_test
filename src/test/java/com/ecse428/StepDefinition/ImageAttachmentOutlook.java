@@ -26,7 +26,7 @@ public class ImageAttachmentOutlook {
     private final String EMAIL_PASSWORD = "ecse4282019";
     private final String IMAGE_FILE_DIRECTORY = "src/test/resources/";
 
-    private final String NEW_MSG_BTN_ID = "id__3";
+    private final String NEW_MSG_BTN_CLASSNAME= "label-43";
     private final String EMAIL_FORM_ID = "i0116";
     private final String PASS_FORM_ID = "i0118";
     private final String SIGNIN_BTN_ID = "idSIButton9";
@@ -75,7 +75,7 @@ public class ImageAttachmentOutlook {
 
         // Find new message button by id and click on it
         try {
-            WebElement newMessBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(NEW_MSG_BTN_ID)));
+            WebElement newMessBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(NEW_MSG_BTN_CLASSNAME)));
             newMessBtn.click();
         } catch (Exception e) {
             printErrorMsg(e);
