@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.WebElement;
 
 public class ImageAttachmentOutlook {
-    
+
     private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
     private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/?nlp=1";
     private final String OUTLOOK_INBOX_TITLE = "Mail - Fiona Wang - Outlook";
@@ -32,6 +32,7 @@ public class ImageAttachmentOutlook {
     private final String SIGNIN_BTN_ID = "idSIButton9";
     private final String ATTACH_BTN_NAME = "Attach";
     private final String FILE_INPUT_CLASSNAME = "_1iWL2ddLCtiEp9P-UVh8nV";
+    private final String UPLOADED_FILE_CLASSNAME = "is-fadeIn";
     private final String ERROR_MSG_CLASSNAME = "_3c57Fvb9-GOxD8a2WZ2cw-";
 
     private final int TIME_WAIT_FOR_CONDITION = 15;
@@ -74,8 +75,7 @@ public class ImageAttachmentOutlook {
 
         // Find new message button by id and click on it
         try {
-            WebElement newMessBtn = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id(NEW_MSG_BTN_ID)));
+            WebElement newMessBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(NEW_MSG_BTN_ID)));
             newMessBtn.click();
         } catch (Exception e) {
             printErrorMsg(e);
@@ -117,7 +117,7 @@ public class ImageAttachmentOutlook {
     public void attach_jpeg_image() throws Throwable {
         System.out.println("Step: Attach a .jpeg image to the message");
         // Upload only one .jpeg file
-        uploadFiles(new String[] { "test3.jpg"}, true);
+        uploadFiles(new String[] { "test3.jpg" }, true);
     }
 
     @And("^I click on “send” button$")
@@ -137,7 +137,7 @@ public class ImageAttachmentOutlook {
         try {
             WebElement errMsg = wait
                     .until(ExpectedConditions.visibilityOfElementLocated(By.className(ERROR_MSG_CLASSNAME)));
-            Assert.assertTrue(errMsg.getText().contains("This file is too large"));
+            Assert.assertTrue(errMsg.isEnabled());
         } catch (Exception e) {
             printErrorMsg(e);
         }
@@ -214,11 +214,12 @@ public class ImageAttachmentOutlook {
             }
             WebElement fileInput = driver.findElementByClassName(FILE_INPUT_CLASSNAME);
             fileInput.sendKeys(input);
+
             // Wait for images to be loaded
             if (waitForLoad) {
-                wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("is-fadeIn")));
+                wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className(UPLOADED_FILE_CLASSNAME)));
             }
-            
+
         } catch (Exception e) {
             printErrorMsg(e);
         }
