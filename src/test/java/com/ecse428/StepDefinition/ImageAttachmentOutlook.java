@@ -20,22 +20,22 @@ import org.openqa.selenium.WebElement;
 
 public class ImageAttachmentOutlook {
 
-    // private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
-    private final String PATH_TO_CHROME_DRIVER = "/Users/fionahang/Documents/MCGILL/U4/ECSE428/chromedriver";
+    private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
+//    private final String PATH_TO_CHROME_DRIVER = "/Users/fionahang/Documents/MCGILL/U4/ECSE428/chromedriver";
     private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/?nlp=1";
     private final String OUTLOOK_INBOX_TITLE = "Mail - Fiona Wang - Outlook";
-    // private final String EMAIL_ADDRESS = "fionawang.ecse428@hotmail.com";
-    // private final String EMAIL_PASSWORD = "ecse4282019";
-    private final String EMAIL_ADDRESS = "fionawang.ecse429@hotmail.com";
-    private final String EMAIL_PASSWORD = "ecse4292019";
+	private final String EMAIL_ADDRESS = "fionawang.ecse428@hotmail.com";
+	private final String EMAIL_PASSWORD = "ecse4282019";
+//    private final String EMAIL_ADDRESS = "fionawang.ecse429@hotmail.com";
+//    private final String EMAIL_PASSWORD = "ecse4292019";
     private final String IMAGE_FILE_DIRECTORY = "src/test/resources/";
     private final String RECIPIENT_EMAIL = "fiona.hang96@gmail.com";
     private final String RECIPIENT_EMAIL_2 = "dongwen.wang@gmail.com";
 
     private String emailSubject;
 
-    // private final String NEW_MSG_BTN_ID = "id__3";
-    private final String NEW_MSG_BTN_ID = "id__5";
+    private final String NEW_MSG_BTN_ID = "id__3";
+//    private final String NEW_MSG_BTN_ID = "id__5";
     private final String EMAIL_FORM_ID = "i0116";
     private final String PASS_FORM_ID = "i0118";
     private final String SIGNIN_BTN_ID = "idSIButton9";
@@ -44,12 +44,11 @@ public class ImageAttachmentOutlook {
     private final String UPLOADED_FILE_CLASSNAME = "is-fadeIn";
     private final String ERROR_MSG_CLASSNAME = "_3c57Fvb9-GOxD8a2WZ2cw-";
     private final String RECIPIENT_FORM_CLASSNAME = "pickerInput_269bfa71";
-    private final String RECIPIENT_DROPDOWN_ID = "sug-header-item2";
+    private final String RECIPIENT_DROPDOWN_XPATH = "//div[@id='sug-header-item2' or @id='sug-0']";
     private final String SUBJECT_FORM_ID = "subjectLine0";
     private final String SEND_BTN_CLASSNAME = "_3wi0Ec22JNBf3ClMCpnf1Z";
     private final String SENT_ITEMS_BTN_XPATH = "//span[text()='Sent Items']";
-    private final String EMAIL_TITLE_SPAN_XPATH = "//div[contains(@class,'RKJYnFQ991LYsw_styUw')]/span[text()='" + emailSubject + "']";
-
+    
     private final int TIME_WAIT_FOR_CONDITION = 15;
 
     private ChromeDriver driver;
@@ -107,7 +106,7 @@ public class ImageAttachmentOutlook {
             WebElement emailForm = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(RECIPIENT_FORM_CLASSNAME)));
             emailForm.sendKeys(RECIPIENT_EMAIL);
             // Select the email address in the drop down
-            WebElement selectEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(RECIPIENT_DROPDOWN_ID)));
+            WebElement selectEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(RECIPIENT_DROPDOWN_XPATH)));
             selectEmail.click();
         } catch (Exception e) {
             printErrorMsg(e);
@@ -124,13 +123,13 @@ public class ImageAttachmentOutlook {
             WebElement emailForm = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(RECIPIENT_FORM_CLASSNAME)));
             emailForm.sendKeys(RECIPIENT_EMAIL);
             // Select the email address in the drop down
-            WebElement selectEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(RECIPIENT_DROPDOWN_ID)));
+            WebElement selectEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(RECIPIENT_DROPDOWN_XPATH)));
             selectEmail.click();
             // Input the second email address
             WebElement emailForm2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(RECIPIENT_FORM_CLASSNAME)));
             emailForm2.sendKeys(RECIPIENT_EMAIL_2);
             // Select the email address in the drop down
-            WebElement selectEmail2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(RECIPIENT_DROPDOWN_ID)));
+            WebElement selectEmail2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(RECIPIENT_DROPDOWN_XPATH)));
             selectEmail2.click();
         } catch (Exception e) {
             printErrorMsg(e);
@@ -204,7 +203,7 @@ public class ImageAttachmentOutlook {
             sentItemsButton.click();
 
             // Get the title of the last sent email
-            WebElement emailTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(EMAIL_TITLE_SPAN_XPATH)));
+            WebElement emailTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'RKJYnFQ991LYsw_styUw')]/span[text()='" + emailSubject + "']")));
             String sentEmailTitle = emailTitle.getText();
             System.out.println("Last email sent: " + sentEmailTitle);
 
