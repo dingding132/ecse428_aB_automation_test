@@ -82,12 +82,12 @@ public class ImageAttachmentOutlook {
         }
     }
 
-    @And("^I have selected a single email recipient$")
+    @And("^I have input a single email recipient$")
     public void enter_single_email_recipient() throws Throwable {
         System.out.println("Step: Enter email recipient");
     }
 
-    @And("^I have selected a two email recipient$")
+    @And("^I have input a two email recipient$")
     public void enter_two_email_recipients() throws Throwable {
         System.out.println("Step: Enter two email recipients");
     }
