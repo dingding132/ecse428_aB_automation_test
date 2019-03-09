@@ -1,4 +1,4 @@
-Feature: Hotmail send email with image attachment
+Feature: Outlook send email with image attachment
 
   Scenario: Attaching an image to email with one recipient
     Given I am on the new message page
