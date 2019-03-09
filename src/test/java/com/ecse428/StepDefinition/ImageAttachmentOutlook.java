@@ -21,13 +21,10 @@ import org.openqa.selenium.WebElement;
 public class ImageAttachmentOutlook {
 
     private final String PATH_TO_CHROME_DRIVER = "/Users/qingqing/Documents/workspace/School/ECSE428/chromedriver";
-//    private final String PATH_TO_CHROME_DRIVER = "/Users/fionahang/Documents/MCGILL/U4/ECSE428/chromedriver";
     private final String OUTLOOK_SIGNIN_URL = "https://outlook.live.com/owa/?nlp=1";
     private final String OUTLOOK_INBOX_TITLE = "Mail - Fiona Wang - Outlook";
 	private final String EMAIL_ADDRESS = "fionawang.ecse428@hotmail.com";
 	private final String EMAIL_PASSWORD = "ecse4282019";
-//    private final String EMAIL_ADDRESS = "fionawang.ecse429@hotmail.com";
-//    private final String EMAIL_PASSWORD = "ecse4292019";
     private final String IMAGE_FILE_DIRECTORY = "src/test/resources/";
     private final String RECIPIENT_EMAIL = "fiona.hang96@gmail.com";
     private final String RECIPIENT_EMAIL_2 = "dongwen.wang@gmail.com";
@@ -77,7 +74,6 @@ public class ImageAttachmentOutlook {
         // verify initial state after test is run (still in the outlook inbox)
         Assert.assertTrue(verifyInitialState());
 
-        // TODO: uncomment the below line to close drivers when task is done
         // close the driver after each test
         driver.close();
     }
